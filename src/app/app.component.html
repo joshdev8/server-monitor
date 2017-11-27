@@ -1,13 +1,95 @@
 <div class="container">
   <h1>Server Monitor</h1>
   <div style="background:#eee" class="">
+    <h3 class="hostname">{{this.hostname}}
+      <span class="os">({{this.platform}} {{this.release}})</span>
+    </h3>
+    <div class="col-md-4">
+      <h4>Server Info</h4>
+      <ul>
+        <li>
+          <strong>OS:</strong> {{this.platform}}</li>
+        <li>
+          <strong>RELEASE:</strong> {{this.release}}</li>
+        <li>
+          <strong>CPU:</strong> {{this.model.model}}</li>
+        <li>
+          <strong>UPTIME:</strong> {{this.uptime}}</li>
+        <li>
+          <strong>ARCHITECTURE:</strong> {{this.architecture}}</li>
+        <li>
+          <strong>LOAD AVG's (1min, 5min, 15min):</strong>
+          <ul>
+            <li *ngFor="let load of loadavg">
+              {{this.load}}
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>SPEED:</strong> {{this.model.speed}}</li>
+        <li>
+          <strong>TIMES:</strong>
+        </li>
+        <ul class="times">
+          <li>User: {{this.model.times.user}}</li>
+          <li>Nice: {{this.model.times.nice}}</li>
+          <li>Sys: {{this.model.times.sys}}</li>
+          <li>Idle: {{this.model.times.idle}}</li>
+          <li>IRQ: {{this.model.times.irq}}</li>
+        </ul>
+        <button *ngIf="!showNetwork" class="btn btn-primary" (click)="displayNetwork()">Show Network Info</button>
+        <button *ngIf="showNetwork" class="btn btn-danger" (click)="displayNetwork()">Hide Network Info</button>
+        <div *ngIf="showNetwork">
+          <strong>NETWORK STATS: </strong>
+          <h5>eth0:</h5>
+          <div *ngFor="let network of networkinterfaces.eth0; let i = index">
+            <ul class="netStats1">
+              <li>
+                <strong>address {{i}}:</strong> {{network.address}}</li>
+              <li>
+                <strong>netmask {{i}}:</strong> {{network.netmask}}</li>
+              <li>
+                <strong>family {{i}}:</strong> {{network.family}}</li>
+              <li>
+                <strong>mac {{i}}:</strong> {{network.mac}}</li>
+            </ul>
+          </div>
+          <h5>eth1:</h5>
+          <div *ngFor="let networkTwo of networkinterfaces.eth1; let i = index">
+            <ul class="netStats2">
+              <li>
+                <strong>address {{i}}:</strong> {{networkTwo.address}}</li>
+              <li>
+                <strong>netmask {{i}}:</strong> {{networkTwo.netmask}}</li>
+              <li>
+                <strong>family {{i}}:</strong> {{networkTwo.family}}</li>
+              <li>
+                <strong>mac {{i}}:</strong> {{networkTwo.mac}}</li>
+            </ul>
+          </div>
+
+          <h5>lo:</h5>
+          <div *ngFor="let networkThree of networkinterfaces.lo; let i = index">
+            <ul class="netStats3">
+              <li>
+                <strong>address {{i}}:</strong> {{networkThree.address}}</li>
+              <li>
+                <strong>netmask {{i}}:</strong> {{networkThree.netmask}}</li>
+              <li>
+                <strong>family {{i}}:</strong> {{networkThree.family}}</li>
+              <li>
+                <strong>mac {{i}}:</strong> {{networkThree.mac}}</li>
+            </ul>
+          </div>
+        </div>
+      </ul>
+    </div>
     <div class="col-md-4">
       <h4>Memory</h4>
       <canvas id="mChart" width="400" height="400"></canvas>
     </div>
-
     <div class="col-md-4">
-      <h4>Cpu load average</h4>
+      <h4>CPU load average</h4>
       <canvas id="cChart" width="400" height="400"></canvas>
     </div>
   </div>

@@ -1,0 +1,17 @@
+body {
+    color:lightgray;
+}
+
+/* ul.times li {
+    font-style:italic;
+} */
+
+.hostname {
+    color:darkmagenta;
+    text-align: center;
+}
+
+.os {
+    font-size:20px;
+    font-style:italic;
+}
